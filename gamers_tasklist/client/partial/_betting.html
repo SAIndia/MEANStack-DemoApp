@@ -1,0 +1,30 @@
+<form #frmBetting="ngForm">
+    <div class="form-group">
+        <input type="text" class="form-control" name="tournament" [(ngModel)]="tournament"/>            
+    </div>
+    <div class="form-group">
+        <input type="text" class="form-control" name="begins" [(ngModel)]="begins"/>            
+    </div>
+    <div class="form-group">
+        <input type="text" class="form-control" name="lastbetdate" [(ngModel)]="lastbetdate"/>            
+    </div>
+    <div class="form-group">        
+        <textarea class="form-control" name="info" [(ngModel)]="info"></textarea>    
+    </div>
+    <button type="submit" (click)="saveBetting(frmBetting.value)" class="btn btn-default">Save</button>
+</form>
+
+<div>
+    <table border="1" width="50%">
+        <tr>
+            <th>Tournament</th>
+            <th>Start Date</th>
+            <th>Last Betting Date</th>
+        </tr>
+        <tr *ngFor="let bet of bettings">
+            <td>{{bet.tournament}}</td>
+            <td>{{bet.begins}}</td>
+            <td>{{bet.lastbetdate}}</td>
+        </tr>
+    </table>
+</div>

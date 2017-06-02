@@ -1,0 +1,337 @@
+<div class="title-search-block">
+    <div class="title-block">
+        <div class="row">
+            <div class="col-md-8">
+                <h3 class="title">{{tournamentStatusDefaultName}} Tournaments</h3>
+            </div>
+            <div class="col-md-4">
+                <select id="ddlstatus" class="form-control" [(ngModel)]="tournamentStausDefaultID" (ngModelChange)="getTournamentStaus($event)">
+                    <option *ngFor="let status of tournamentStatuses" [value]="status._id"> {{status.TournamentStatusName}} </option>                    
+                </select> 
+            </div>
+        </div>
+    </div>                        
+</div>
+
+<div class="card items">
+    <ul class="item-list striped">
+        <li class="item item-list-header hidden-sm-down">
+            <div class="item-row">
+                <div class="item-col fixed item-col-check"><label class="item-check" id="select-all-items"><input type="checkbox" class="checkbox" (change)="checkAllTournaments($event)"><span></span></label> </div>
+                <div class="item-col item-col-header item-col-title">
+                    <div> <span>Name</span> </div>
+                </div>
+                <div class="item-col item-col-header item-col-sales">
+                    <div class="text-center"> <span>No. of bets</span> </div>
+                </div>
+                <div class="item-col item-col-header item-col-stats">
+                    <div class="text-center"> <span>Begin date</span> </div>
+                </div>
+                <div class="item-col item-col-header item-col-category">
+                    <div class="text-center"> <span>Last bet</span> </div>
+                </div>
+                <div class="item-col item-col-header fixed item-col-actions-dropdown"> </div>
+            </div>
+        </li>
+        <li class="item" *ngFor="let tournament of tournaments; let i = index">
+            <div class="item-row">
+                <div class="item-col fixed item-col-check"> <label class="item-check" id="select-all-items"><input type="checkbox" class="checkbox" (change)="addAsArchive($event, tournament._id)"><span></span></label> </div>
+                <div class="item-col fixed pull-left item-col-title">
+                    <div class="item-heading">Name</div>
+                    <div>
+                    <h4 class="item-title"> {{tournament.TournamentName}} </h4>
+                    </div>
+                </div>
+                <div class="item-col item-col-sales">
+                    <div class="item-heading">No. of bets</div>
+                    <div class="text-center"> {{tournament.NumberOfBets}} </div>
+                </div>
+                <div class="item-col item-col-stats no-overflow">
+                    <div class="item-heading">Begin date</div>
+                    <div class="text-center"> {{tournament.StrStartDate}} </div>
+                </div>
+                <div class="item-col item-col-category no-overflow">
+                    <div class="item-heading">Last bet</div>
+                    <div class="text-center">{{tournament.StrLastBetDate}}</div>
+                </div>
+                <div class="item-col fixed item-col-actions-dropdown">
+                    <div class="item-actions-dropdown">
+                        <a class="item-actions-toggle-btn"> 
+                            <span class="inactive">
+                                <i class="fa fa-cog fa-lg"></i>
+                            </span> 
+                            <span class="active">
+                                <i class="fa fa-chevron-circle-right fa-lg"></i>
+                            </span> 
+                        </a>
+                        <div class="item-actions-block">
+                            <ul class="item-actions-list">
+                                <li>
+                                    <a class="edit" href="#" (click)='showHide(i)'> <i class="fa fa-pencil"></i> </a>
+                                </li>
+                                <li style="display: none;">
+                                    <a class="jqclose" href="#" (click)='hideMe()'> <i class="fa fa-times" aria-hidden="true"></i> </a>
+                                </li>
+                                
+                                <!--<li>
+                                    <a [hidden]="!hideArchive" class="trash" href="#" (click)='deleteTournament(tournament._id)'> <i class="fa fa-trash"></i> </a>
+                                </li>-->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="edit-tournament-wrap" style="display:none;">
+                <form  #frmTournament=ngForm [id]="tournament._id">
+                       
+                    <div class="card card-block">
+                        <div class="form-group row" style="display:none;"> 
+                            <label class="col-sm-3 form-control-label text-xs-right">ID:</label>
+                            <div class="col-sm-5">
+                                <input class="form-control boxed" placeholder="" type="text" [(ngModel)]="tournament._id"  name="TournamentId"> 
+                            </div>
+                        </div>
+                        <div class="form-group row"> 
+                            <label class="col-sm-3 form-control-label text-xs-right">Name:</label>
+                            <div class="col-sm-5">
+                                <input class="form-control boxed" placeholder="" type="text" 
+                                       required #refTournamentName="ngModel"
+                                       [(ngModel)]="tournament.TournamentName"  name="TournamentName"> 
+                            </div>
+                        </div>
+                        <div class="form-group row"> 
+                            <label class="col-sm-3 form-control-label text-xs-right">Description:</label>
+                            <div class="col-sm-5">
+                                <textarea rows="3" class="form-control boxed" 
+                                          required #refDescription="ngModel"
+                                          [(ngModel)]="tournament.Info"  name="Info"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 form-control-label text-xs-right">Last Bet Date: </label>
+                            <div class="col-sm-5">                                
+                                <input class="form-control boxed jqdate-input" ng2-datetime-picker
+                                           required #refLastBetDate="ngModel" 
+                                           [(ngModel)]="tournament.StrLastBetDate"  name="LastBetDate" 
+                                           date-only="true" date-format="DD/MM/YYYY" />
+                            </div>                                
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 form-control-label text-xs-right">Begin Date: </label>
+                            <div class="col-sm-5">
+                                
+                                <input class="form-control boxed jqdate-input"  ng2-datetime-picker
+                                           required #refStartDate="ngModel"
+                                           [(ngModel)]="tournament.StrStartDate"  name="StartDate" 
+                                           date-only="true" date-format="DD/MM/YYYY" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 form-control-label text-xs-right">End Date: </label>
+                            <div class="col-sm-5">
+                                
+                                <input class="form-control boxed jqdate-input"  ng2-datetime-picker
+                                           required #refEndDate="ngModel" 
+                                           [(ngModel)]="tournament.StrEndDate"  name="EndDate" 
+                                           date-only="true" date-format="DD/MM/YYYY" />
+                            </div>
+                        </div>
+                        <div class="form-group row"> 
+                            <label class="col-sm-3 form-control-label text-xs-right">Images:</label>
+                            <div class="col-sm-7">
+                                <div class="images-container">
+                                    <input type="file" class="form-control"  name="single" ng2FileSelect [uploader]="uploader" />
+                                    <a href="#" class="add-image" data-toggle="modal" data-target="#modal-media">
+                                        <div class="image-container new">
+                                            <div class="image"> <img [src]="tournament.Image" width="130px" height="135px"/><i class="fa fa-plus"></i> </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>                                
+                        </div>
+                        <div class="form-group row"> 
+                            <label class="col-sm-3 form-control-label text-xs-right">No. of Players:</label>
+                            <div class="col-sm-1">
+                                <input class="form-control boxed" placeholder="" type="text" 
+                                       required #refPlayersCount="ngModel"
+                                       
+                                       [(ngModel)]="tournament.PlayersCount"  name="PlayersCount" 
+                                       (keyup)="populatePlayersCountKeyPress($event, frmTournament.value)">
+                            </div>
+                        </div>
+                        <div class="form-group row"> 
+                            <span style="color: red; font-size: small" 
+                                  *ngIf="!isInSequence(tournament.PlayersCount)">
+                                        No. of players either be 4, 8, 16, or 32</span>
+                        </div>
+                        <div class="form-group row">
+                            <div class="form-control-label">Players Area</div>
+                            <div class="players-area"> <input type="hidden" [(ngModel)]="tournament.Players" name="Players"/>
+                                <div class="col-sm-3" *ngFor="let player of tournament.Players let i=index">
+                                    <input class="form-control boxed" placeholder="" type="text" 
+                                           required #refPlayersArea="ngModel"
+                                           [(ngModel)]="player.Name" name="Name{{i}}" /> 
+                                </div>                                
+                            </div>
+                        </div>
+
+                        <div class="form-group form-btn">
+                            <button [disabled]="!frmTournament.form.valid" type="submit" class="btn btn-primary" [hidden]="!tournament.Republish" (click)="updateTournamentAsDraft(frmTournament.value, uploader, dialogModal, tournament._id)">Save as Draft</button> 
+                            <button [disabled]="!frmTournament.form.valid" type="submit" class="btn btn-primary" [hidden]="!tournament.Republish" (click)="updateAndPublish(frmTournament.value, uploader, dialogModal, tournament._id)">Save and Publish</button> 
+                        </div>
+                    </div>
+                </form>
+           </div>
+          
+           <div  class="results-area" [class.results-area-setwidth-16]="tournament.PlayersCount>=16"  style="display: none" >
+                <ul *ngFor="let round of tournament.Rounds" [style.display]="(tournament.TournamentStatusId != '58391d19dbbdd237f06b5117') ? 'none' : 'block' ">
+                    <div *ngFor="let roundResult of round.RoundResults" style="cursor: pointer;" >
+                        <li [class.winner]="roundResult.FirstPlayerId === roundResult.WinnerId" 
+                            [class.loser] ="roundResult.WinnerId != '' && roundResult.FirstPlayerId != roundResult.WinnerId"                            
+                            (click)="addPlayerResult($event, roundResult.FirstPlayerId, roundResult.TournamentId, roundResult.Round, roundResult.PlayersCount, tournament, dialogModal)">{{roundResult.FirstPlayerName}}</li>
+                        <li [class.winner]="roundResult.SecondPlayerId === roundResult.WinnerId" 
+                            [class.loser] ="roundResult.WinnerId != '' && roundResult.SecondPlayerId != roundResult.WinnerId"
+                            [style.display]="(roundResult.SecondPlayerName === '') ? 'none' : 'block' " 
+                            (click)="addPlayerResult($event, roundResult.SecondPlayerId, roundResult.TournamentId, roundResult.Round, roundResult.PlayersCount, tournament, dialogModal)">{{roundResult.SecondPlayerName}}</li>
+                    </div>
+                </ul>
+            </div>
+        </li>        
+    </ul>
+</div>
+
+<!-- Pager Settings -->
+<nav class="text-xs-right"> 
+    <ul class="pagination" *ngIf="Pager.Pages.length > 1">
+       
+        <li class="page-item"  *ngIf="Pager.CurrentPage > 1"> 
+            <a class="page-link" href="javascript:void(0)" 
+                (click)="getAllTournamentsByTournamentStatus(Pager.CurrentPage - 1, tournamentStausDefaultID)">Prev</a>
+        </li>
+        <li class="page-item" *ngFor="let page of Pager.Pages" [ngClass]="{'active': Pager.CurrentPage === page}"> 
+            <a class="page-link" href="javascript:void(0)" 
+                (click)="getAllTournamentsByTournamentStatus(page, tournamentStausDefaultID)">{{page}}</a> 
+        </li>                           
+        <li class="page-item"  *ngIf="Pager.Pages.length > Pager.CurrentPage"> 
+            <a class="page-link" href="javascript:void(0)" 
+                (click)="getAllTournamentsByTournamentStatus(Pager.CurrentPage + 1, tournamentStausDefaultID)">Next</a> 
+        </li>
+    </ul>
+</nav>
+<!-- Pager Settings -->
+
+<div class="action-btn-wrap"><button [hidden]="hideArchive" type="button" class="btn btn-primary" (click)="saveAsArchive($event, dialogModal)">Archive</button><button type="button" class="btn btn-primary" (click)="addTournament()">Add Tournament</button></div>
+    <div class="add-tournament-wrap" [hidden]="hidden">
+        <h3 class="title">Add Tournaments</h3>
+        <form name="item" id="addTournament"  #frmAddTournament=ngForm novalidate>
+            <div class="card card-block">
+                <div class="form-group row"> 
+                    <label class="col-sm-3 form-control-label text-xs-right">Name:</label>
+                    <div class="col-sm-5">
+                        <input class="form-control boxed" placeholder="" 
+                               required #refTournamentName="ngModel"
+                               [(ngModel)]="Tournament.TournamentName" name="TournamentName" type="text"> 
+                        <!--<div [hidden]="refTournamentName.valid || refTournamentName.pristine">
+                            <span style="color: red; font-size: smaller"> Tournament Name Required. </span>
+                        </div>-->      
+                    </div>
+                </div>
+                <div class="form-group row"> 
+                    <label class="col-sm-3 form-control-label text-xs-right">Description:</label>
+                    <div class="col-sm-5">
+                        <textarea rows="3" class="form-control boxed"
+                                  required #refDescription="ngModel"
+                                  [(ngModel)]="Tournament.Info" name="Info"></textarea>                                                         
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 form-control-label text-xs-right">Last Bet Date: </label>
+                    <div class="col-sm-5">
+                        
+                        <input class="form-control boxed jqdate-input" ng2-datetime-picker
+                                   required #refLastBetDate="ngModel" 
+                                   [(ngModel)]="Tournament.StrLastBetDate"  name="LastBetDate" 
+                                   date-only="true" date-format="DD/MM/YYYY"  />   
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 form-control-label text-xs-right">Begin Date: </label>
+                    <div class="col-sm-5">
+                        
+                        <input class="form-control boxed jqdate-input" ng2-datetime-picker
+                                   required #refStartDate="ngModel"
+                                   [(ngModel)]="Tournament.StrStartDate" name="StartDate"
+                                   date-only="true" date-format="DD/MM/YYYY" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 form-control-label text-xs-right">End Date: </label>
+                    <div class="col-sm-5">
+                        
+                        <input class="form-control boxed jqdate-input" ng2-datetime-picker 
+                                   required #refEndDate="ngModel"
+                                   [(ngModel)]="Tournament.StrEndDate" name="EndDate"
+                                   date-only="true" date-format="DD/MM/YYYY" />
+                    </div>
+                </div>
+                <div class="form-group row"> 
+                    <label class="col-sm-3 form-control-label text-xs-right">Images:</label>
+                    <div class="col-sm-7">
+                        <div class="images-container">
+                            <!--<a href="#" class="add-image" data-toggle="modal" data-target="#modal-media">
+                                <div class="image-container new">
+                                    <div class="image"> <i class="fa fa-plus"></i> </div>
+                                </div>
+                            </a>-->
+                            <input type="file" class="form-control"  name="single" ng2FileSelect [uploader]="uploader"  [ngClass]="{'ng-invalid': uploader.queue.length === 0, 'ng-valid': uploader.queue.length > 0}" />
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="form-group row"> 
+                    <label class="col-sm-3 form-control-label text-xs-right">No. of Players:</label>
+                    <div class="col-sm-1">
+                        <input class="form-control boxed" placeholder="" type="text" 
+                               required #refPlayersCount="ngModel"
+                               [(ngModel)]="Tournament.PlayersCount" name="PlayersCount" 
+                               (keyup)="playersCountKeyPress($event, frmAddTournament.value)"> 
+                    </div>
+                </div>
+                <div class="form-group row"> 
+                    <span style="color: red; font-size: small" *ngIf="!isInSequence(Tournament.PlayersCount)">No. of players either be 4, 8, 16, or 32</span>
+                </div>
+                <div class="form-group row">
+                    <div class="form-control-label">Players Area</div>
+                    <div class="players-area">                        
+                        <div class="col-sm-3" *ngFor="let player of Tournament.Players let i=index">
+                            <input class="form-control boxed" placeholder="" type="text" 
+                                    required #refPlayersArea="ngModel"
+                                    [(ngModel)]="player.Name" name="Name{{i}}">
+                        </div>                       
+                    </div>
+                </div>
+
+                <div class="form-group form-btn">
+                    <button [disabled]="!frmAddTournament.form.valid" type="submit" class="btn btn-primary" 
+                            (click)="saveTournamentAsDraft(frmAddTournament.value, uploader, dialogModal)">Save as Draft</button> 
+                    <button [disabled]="!frmAddTournament.form.valid" type="submit" class="btn btn-primary" 
+                            (click)="saveAndPublish(frmAddTournament.value, uploader, dialogModal)">Save and Publish</button> 
+                    
+                </div>
+        </div>
+    </form>
+</div>
+
+<modal #dialogModal [closeOnEscape]="false" [closeOnOutsideClick]="false">
+    <modal-header>
+        <h2>GameBet</h2>
+    </modal-header>
+    <modal-content>
+        {{showMessage}}
+    </modal-content>
+    <modal-footer>
+        <button class="btn btn-primary" (click)="dialogModal.close()">OK</button>
+    </modal-footer>
+</modal>
+        

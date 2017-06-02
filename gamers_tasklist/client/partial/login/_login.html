@@ -1,0 +1,32 @@
+<div class="auth log-form">
+     <div class="auth-container">
+          <div class="card">
+                <header class="auth-header">
+                    <h1 class="auth-title">
+                        <div class="logo"><img src="images/logo 2.png"></div>       
+                        </h1> </header>
+                    <div class="auth-content">
+                        <h3 class="text-xs-center">Login</h3>
+                        <form #frmLogin=ngForm novalidate >
+                            <div class="form-group"> 
+                                <label for="username">Username</label> 
+                                <input type="email" class="form-control underlined" 
+                                       [(ngModel)]="UserDto.Email" name="Email"  placeholder="Your email address" required
+                                       (keydown)="loginByKeypress($event, frmLogin.value)" /> 
+                            </div>
+                            <div class="form-group"> 
+                                <label for="password">Password</label> 
+                                <input type="password" class="form-control underlined" 
+                                       [(ngModel)]="UserDto.Password" name="Password"  placeholder="Your password" required
+                                       (keydown)="loginByKeypress($event, frmLogin.value)" /> 
+                            </div>                          
+                            <div  class="form-group">
+                                <label style="color:red; font-size:small;">{{errorMessage}}</label>
+                            </div>
+                        </form>
+                        <div class="form-group"> <button  class="btn btn-block btn-primary" (click)="adminLogin(frmLogin.value)">Login</button> </div>
+                        
+                    </div>
+            </div>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+$white: #ffffff;
+$black: #000000;
+$red: #ff0000;
+
+
+// Extends & Placeholders
+%full-width {
+    float:left;
+    width: 100%;
+}
+%half-width {
+    float:left;
+    width: 50%;
+}
+
+/* Mixins */
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+      -ms-border-radius: $radius;
+          border-radius: $radius;
+}

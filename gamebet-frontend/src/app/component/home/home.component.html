@@ -1,0 +1,78 @@
+<!--Navbar-->
+    <nav class="navbar navbar-dark navbar-fixed-top scrolling-navbar">
+
+        <!-- Collapse button-->
+        <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#collapseEx">
+            <i class="fa fa-bars"></i>
+        </button>
+
+        <div class="container">
+            <!--Collapse content-->
+            <div class="collapse navbar-toggleable-xs" id="collapseEx">
+                <!--Navbar Brand-->
+                <a class="navbar-brand" [routerLink]="['/home']"> </a>
+                <!--Links-->
+                <ul class="nav navbar-nav float-lg-right float-sm-left">
+                    <li class="nav-item">
+                        <a [routerLink]="['/home']" class="nav-link">Home <span class="sr-only">(current)</span></a>
+                    </li>                  
+                    <li class="nav-item">
+                        <a [routerLink]="['/betting']" class="nav-link" href="#examples-of-use">Betting</a>
+                    </li>
+                    <li class="nav-item">
+                        <a [routerLink]="['/myaccount']" class="nav-link" href="#examples-of-use">My Account</a>
+                    </li>
+                    <li class="nav-item">
+                      <a [hidden]="!isLoggedin" [routerLink]="['/login']" class="nav-link">Login</a> 
+                      <a [hidden]="isLoggedin" href="javascript:void(0);" class="nav-link" (click)="userLogOut()">Logout</a>                        
+                    </li>
+                </ul>
+            </div>
+            <!--/.Collapse content-->
+
+        </div>
+
+    </nav>
+    <!--/.Navbar-->
+    
+    <!--Mask-->
+    <div class="view hm-black-light">
+        <div class="full-bg-img flex-center">
+            <ul>
+                <li>
+                    <h1 class="h1-responsive wow fadeInDown" data-wow-delay="0.2s">Bet on Gamers</h1></li>
+                <li>
+                    <p class="wow fadeInDown">Bet on your favourite games and tournaments and win!!!</p>
+                </li>
+                <li>
+                    <a href="api/auth/facebook" class="btn btn-outline-white waves-effect" data-wow-delay="0.2s">Sign up with Facebook</a>
+                    <a href="api/auth/google" class="btn btn-outline-white waves-effect" data-wow-delay="0.2s">Signup with Google</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!--/.Mask-->
+    <div class="container">
+        <div class="divider-new">
+            <h2 class="h2-responsive wow bounceIn"> This is how it works </h2>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="breadcrumb">
+                    <li><a href="#">Step 1</a></li>
+                    <li><a href="#">Step 2</a></li>
+                    <li><a href="#">Step 3</a></li>
+                    <li><a href="#">Step 4</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="page-footer center-on-small-only elegant-color">
+        <div class="footer-copyright">
+            <div class="container-fluid">
+                &copy; 2017 All rights reserved
+            </div>
+        </div>
+    </footer>  

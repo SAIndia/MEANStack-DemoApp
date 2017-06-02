@@ -1,0 +1,99 @@
+<div class="edge-header warning-color-dark lighten-1"></div>
+        <div class="login-wrap">
+            <div class="login-center">
+                <div class="login-box">
+                    <!--Form with header-->
+                    <div class="card">
+
+                        <div class="card-block">
+                            <!--Login -->
+                            <div class="card-block-inner" [hidden]="!showLogin">
+                                <!--Header-->
+                                <div class="form-header">
+                                    <h3 class="text-md-center text-xs-center"><i class="fa fa-lock orange-text"></i> Login</h3>
+                                </div>
+
+                                <!--Body-->
+                                <form #frmLogin=ngForm novalidate >
+                                    <div class="md-form">
+                                        <i class="fa fa-envelope prefix orange-text font-26"></i>
+                                        <input type="text" id="form2" class="form-control" [(ngModel)]='userInfo.Email' name='Email' required />
+                                        <label for="form2">Your email</label>
+                                    </div>
+
+                                    <div class="md-form">
+                                        <i class="fa fa-lock prefix orange-text"></i>
+                                        <input type="password" id="form4" class="form-control" [(ngModel)]='userInfo.Password' name="Password" required />
+                                        <label for="form4">Your password</label>
+                                    </div>
+                                    <div class="md-form" style="text-align: center">
+                                        <span style="color: red; font-size: small">{{loginError}}</span>
+                                    </div>
+                                    <div class="text-xs-center">
+                                        <button class="btn btn-warning waves-effect waves-light" (click)='userLogin(frmLogin.value)'>Login</button>
+                                    </div>
+                                </form>
+                                <p class="text-xs-right">Not a member? <a href="javascript:void(0);" class="deep-orange-text" (click)='showRegisteration()'>Sign Up</a></p>
+                            </div>
+
+                            <!--Registration Form-->
+                            <div class="card-block-inner" [hidden]="showLogin">
+                                <!--Header-->
+                                <div class="form-header">
+                                    <h3 class="text-md-center text-xs-center"><i class="fa fa-user orange-text"></i> Register</h3>
+                                </div>
+
+                                <!--Body-->
+                                <form #frmRegisteration='ngForm' novalidate >
+                                    <div class="md-form">
+                                        <i class="fa fa-envelope prefix orange-text font-26"></i>
+                                        <input type="text" id="form2" class="form-control" [(ngModel)]='userInfo.Name' name='Name' 
+                                               required #name='ngModel' />
+                                        <label for="form2">Your Name</label>
+                                        <div class="error-msg" *ngIf='name.errors && (name.dirty || name.touched)'>
+                                            required.
+                                        </div>
+                                    </div>
+                                    <div class="md-form">
+                                        <i class="fa fa-envelope prefix orange-text font-26"></i>
+                                        <input type="text" id="form2" class="form-control" [(ngModel)]='userInfo.Email' name='Email' 
+                                               required pattern='^\w+([.]\w+)*@\w+([.]\w+)*\.\w+([.]\w+)*' #email='ngModel' />
+                                        <label for="form2">Your email</label>
+                                        <div class="error-msg" *ngIf='email.errors && (email.dirty || email.touched)'>
+                                            <div [hidden]='!email.errors.required'>required.</div>
+                                            <div [hidden]='!email.errors.pattern'>invalid email pattern.</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="md-form">
+                                        <i class="fa fa-lock prefix orange-text"></i>
+                                        <input type="password" id="form4" class="form-control" [(ngModel)]='userInfo.Password' name='Password' 
+                                                required #password='ngModel' />
+                                        <label for="form4">Your password</label>
+                                        <div class="error-msg" *ngIf='password.errors && (password.dirty || password.touched)'>required.</div>
+                                    </div>
+                                    <div class="md-form">
+                                        <i class="fa fa-lock prefix orange-text"></i>
+                                        <input type="password" id="form4" class="form-control" [(ngModel)]='userInfo.ConfirmPassword' name='ConfirmPassword' required />
+                                        <label for="form4">Verify Your password</label>
+                                        <div class="error-msg" *ngIf='userInfo.Password != userInfo.ConfirmPassword'>missmatching</div>
+                                    </div>
+                                    <div class="md-form" style="text-align: center">
+                                        <span style="color: red; font-size: small">{{registrationError}}</span>
+                                    </div>
+
+                                    <div class="text-xs-center">
+                                        <button class="btn btn-warning waves-effect waves-light" [disabled]='!frmRegisteration.valid' (click)='userRegisteration(frmRegisteration.value)'>Register Now</button>
+                                    </div>
+                                </form>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <!--/Form with header-->  
+                </div>    
+
+            </div>
+        </div>

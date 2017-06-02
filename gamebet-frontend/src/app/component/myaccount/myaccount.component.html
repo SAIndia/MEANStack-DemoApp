@@ -1,0 +1,150 @@
+ <ng2-slim-loading-bar></ng2-slim-loading-bar>
+<!--Navbar-->
+    <nav class="navbar navbar-dark navbar-fixed-top scrolling-navbar">
+        <!-- Collapse button-->
+        <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#collapseEx">
+            <i class="fa fa-bars"></i>
+        </button>
+        <div class="container">
+            <!--Collapse content-->
+            <div class="collapse navbar-toggleable-xs" id="collapseEx">
+                <!--Navbar Brand-->
+                <a class="navbar-brand" [routerLink]="['/home']"> </a>
+                <!--Links-->
+                <ul class="nav navbar-nav float-lg-right float-sm-left">
+                    <li class="nav-item">
+                        <a [routerLink]="['/home']" class="nav-link">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a [routerLink]="['/betting']" class="nav-link" href="#examples-of-use">Betting</a>
+                    </li>
+                    <li class="nav-item">
+                        <a [routerLink]="['/myaccount']" class="nav-link" href="#examples-of-use">My Account</a>
+                    </li>
+                    <li class="nav-item">
+                      <a href="javascript:void(0);" class="nav-link" (click)='userLogOut()'>Logout</a>                        
+                    </li>
+                </ul>
+            </div>
+            <!--/.Collapse content-->
+        </div>
+    </nav>
+    <!--/.Navbar-->
+    <!-- banner begins here-->
+    <div class="banner">
+        <div class="left-content">
+            <h1>{{userInfo.Name}}'s Account</h1>
+            <h2>Starts by selecting tournaments..</h2>
+        </div>
+        
+    </div>
+    
+    <!-- banner ends here -->
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="content-wrap">
+                    <table class="table">                        
+                        <thead>
+                            <tr>
+                                <td class="wrap-row">
+                                    <table class="wrap-table" width="100%">
+                                        <tr>
+                                            <th width="12%">No.</th>
+                                            <th width="18%">Name</th>
+                                            <th width="28%">Begin Date</th>
+                                            <th width="27%">Last Bet</th>
+                                            <th>&nbsp;</th>
+                                            <th>Status</th>                                            
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr> 
+                        </thead>                        
+                        <tbody>
+                            <tr *ngFor="let tournament of tournaments; let i = index">
+                                <td class="wrap-row">
+                                    <table class="wrap-table" width="100%">
+                                        <tr>
+                                            <td width="12%">{{i+1}}</td>
+                                            <td width="18%">{{tournament.TournamentName}}</td>
+                                            <td width="28%">{{tournament.StrStartDate}}</td>
+                                            <td width="27%">{{tournament.StrLastBetDate}}</td>
+                                            <td><a href="javascript:void(0);" class="jqShowHide" [attr.data-id]='tournament._id' >{{tournament.ButtonText}}</a></td>
+                                            <td><img src="images/tick.png" [style.display]="(tournament.IsFinalRound === false) ? 'none' : 'block' "></td>
+                                        </tr>
+                                        <tr [style.display]="tournament.Display" >
+                                            <td colspan="6">
+                                                <div class="game-details">
+                                                    <div class="game-detail-lhs">
+                                                        <div class="game-row">
+                                                            <label>Name :</label><div class="lbl-desc">{{tournament.TournamentName}}</div>
+                                                        </div>
+                                                        <div class="game-row">
+                                                            <label>Description :</label><div class="lbl-desc">{{tournament.Info}}</div>
+                                                        </div>
+                                                        <div class="game-row">
+                                                            <label>Begin Date :</label><div class="lbl-desc">{{tournament.StrStartDate}}</div>
+                                                        </div>
+                                                        <div class="game-row">
+                                                            <label>End Date :</label><div class="lbl-desc">{{tournament.StrEndDate}}</div>
+                                                        </div>
+                                                        <div class="game-row">
+                                                            <label>Last Bet Date :</label><div class="lbl-desc">{{tournament.StrLastBetDate}}</div>
+                                                        </div>
+                                                        <div class="game-row">
+                                                            <label>No.Of Players :</label><div class="lbl-desc">{{tournament.PlayersCount}}</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="game-detail-rhs">
+                                                        <img [src]="tournament.Image" width="130px" height="135px"/>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <div class="results">
+                                                        <div class="results-area">
+                                                             <ul *ngFor="let round of tournament.Rounds">
+                                                                <div *ngFor="let roundResult of round.RoundResults" style="cursor: pointer;">
+                                                                    <li [class.default]="roundResult.FirstPlayerId === roundResult.WinnerId" [attr.data-winner]='roundResult.WinnerId' [attr.data-adminwinner]='roundResult.AdminMarkedWinnerId'                                                                     
+                                                                        [class.loser] ="roundResult.WinnerId != '' && roundResult.FirstPlayerId != roundResult.WinnerId"
+                                                                        [class.winner]="roundResult.AdminMarkedWinnerId === roundResult.WinnerId && roundResult.FirstPlayerId === roundResult.WinnerId"
+                                                                        [class.wrongmark]="(roundResult.AdminMarkedWinnerId ==='0000000000')  && roundResult.AdminMarkedWinnerId != roundResult.WinnerId && roundResult.FirstPlayerId === roundResult.WinnerId"                                                                        
+                                                                        (click)="saveUserPrediction($event, tournament, roundResult.FirstPlayerId, tournament.Players, round.RoundNumber)">{{roundResult.FirstPlayerName}}</li>
+
+                                                                    <li [class.default]="roundResult.SecondPlayerId === roundResult.WinnerId" [attr.data-winner]='roundResult.WinnerId' [attr.data-adminwinner]='roundResult.AdminMarkedWinnerId'
+                                                                        [class.loser] ="roundResult.WinnerId != '' && roundResult.SecondPlayerId != roundResult.WinnerId"
+                                                                        [class.winner]="roundResult.AdminMarkedWinnerId === roundResult.WinnerId && roundResult.SecondPlayerId === roundResult.WinnerId"
+                                                                        [class.wrongmark]="(roundResult.AdminMarkedWinnerId ==='0000000000') &&  roundResult.AdminMarkedWinnerId != roundResult.WinnerId && roundResult.SecondPlayerId === roundResult.WinnerId"                                                                        
+                                                                        [style.display]="(roundResult.SecondPlayerName === '') ? 'none' : 'block' " 
+                                                                        (click)="saveUserPrediction($event, tournament, roundResult.SecondPlayerId, tournament.Players, round.RoundNumber)">{{roundResult.SecondPlayerName}}</li>
+                                                                </div>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="total-point"><label>Total points:</label><b> ( {{tournament.ScoredPoints}} / {{tournament.MaximumPoints}} ) </b></div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="page-footer center-on-small-only elegant-color">
+        <div class="text-xs-center">
+            &copy; 2017 All rights reserved
+        </div>
+    </footer>
+
+    <div id="transparant"></div>      
+    
+    <div id="loader">
+        <img src="images/loader.gif" width="8%">
+    </div> 

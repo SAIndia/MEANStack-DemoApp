@@ -1,0 +1,29 @@
+{
+  "name": "gamers_tasklist",
+  "version": "1.0.0",
+  "description": "Gamers task manager",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bluebird": "^3.4.6",
+    "body-parser": "^1.15.2",
+    "ejs": "^2.5.2",
+    "express": "^4.14.0",
+    "express-fileupload": "0.0.5",
+    "express-session": "^1.14.2",
+    "express-sessions": "^1.0.6",
+    "mongojs": "^2.4.0",
+    "mongoose": "^4.7.0",
+    "mongoose-reverse-populate": "^1.1.0",
+    "multer": "^1.2.0",
+    "multiparty": "^4.1.2",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^4.0.0",
+    "session": "^0.1.0"
+  }
+}

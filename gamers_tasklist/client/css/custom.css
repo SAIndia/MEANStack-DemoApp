@@ -1,0 +1,162 @@
+
+.logo {
+    width: 100% !important;
+    height: auto !important;
+}
+header.header {
+    background: #fff;
+    box-shadow: 0 3px 8px -7px rgba(143,141,143,1);
+}
+h3 {
+    color: #fe821d;
+    font-weight: 800;
+    font-size: 1.5rem;
+}
+.auth.log-form a {
+    font-size: 14px;
+}
+.auth.log-form .card {
+    border-radius: 5px;
+}
+a:not(.btn) {
+    text-decoration: none !important;
+}
+.nav.metismenu.copyright {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.5);
+    text-align: center;
+    padding: 0 0 15px 0
+}
+.header .header-block-nav .profile .img {
+    border-radius: 15px !important;
+}
+/*.custom-table .card .title {
+    color: #fe821d;
+    font-size: 22px;
+}
+.custom-table .table-bordered thead th {
+    color: #fe821d !important;
+}
+.custom-table .table-bordered thead th.center {text-align: center;}
+.custom-table i {
+    color: #fe821d !important;
+}*/
+.action-icons a {
+    margin: 0 3px;
+}
+.action-btn-wrap {
+    margin: 10px 0 10px 0;
+    float: left;
+    width: 100%
+}
+.action-btn-wrap button {
+    float: right;
+    margin-left: 10px;
+}
+.text-center { text-align: center}
+.add-tournament-wrap,
+.edit-tournament-wrap,
+.result-area {
+    float: left;
+    width: 100%;
+    background: #fff;
+    padding: 10px;
+}
+.edit-tournament-wrap {
+    border-bottom: 1px solid #e9edf0;
+}
+.results-area ul li.loser {
+    background: #b8b8b8;
+}
+/* Krishna */
+.results-area {
+    padding: 0 0 0 20px;
+    display: inline-block;
+    vertical-align: top;
+    min-height: 200px;
+    height: 500px;
+    overflow-x: scroll;
+    overflow-y: scroll;
+}
+.results-area ul {
+    position: relative;
+    padding: 0;
+    width: 20%;
+    float: left;
+    margin: 0 20px 0 0; 
+    transform: translateY(-50%);
+    top: 50%;
+    color: #ffffff;
+}
+.results-area ul li {
+    text-align: center;
+    margin: 0 0 20px 0;
+    padding: 5px 10px 5px 10px;
+    list-style-type: none;
+    height: 40px;
+    background: #3a4651;
+}
+.results-area ul li.winner {
+    background: #85CE36;
+}
+
+
+
+
+
+/* Arya */
+.datetimepicker1 .input-group-addon {
+    background-color: transparent !important;
+    border: 1px solid #ccc !important;
+    border-left: 0 !important;
+    font-size: 25px;
+    padding: 4px 4px 3px 0;
+}
+.form-control.boxed.date-input {
+    border-right: 0;
+}
+.form-control.boxed.date-input:focus {
+    border-right: 0;
+}
+.datetimepicker1 .form-control.boxed.date-input:focus + .input-group-addon {
+    border: 1px solid #fe821d !important;
+    border-left: 0 !important;
+}
+.datetimepicker1 .form-control.boxed.date-input:focus + .input-group-addon .fa-calendar,
+.datetimepicker1 .input-group-addon .fa-calendar:focus {
+    color: #fe821d;
+}
+.players-area input {
+    margin-bottom: 20px;
+}
+.players-area {
+    float: left;
+    width: 100%;
+}
+.form-btn .btn {
+    margin-right: 10px;
+}
+div.form-control-label {
+    font-weight: 600;
+    padding-bottom: 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
